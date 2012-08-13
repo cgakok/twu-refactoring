@@ -1,6 +1,7 @@
 package com.twu.refactoring;
 
 import org.junit.Test;
+import sun.jvm.hotspot.utilities.ReversePtrsAnalysis;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,18 @@ public class OrderReceiptTest {
 
         assertThat(output, containsString("Mr X"));
         assertThat(output, containsString("Chicago, 60601"));
+    }
+
+    @Test
+    public void shouldPrintHeader() {
+        //Given
+        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>()) ;
+        OrderReceipt orderReceipt = new OrderReceipt(order);
+        //When
+        String header = orderReceipt.printHeader();
+        //Then
+        assertThat(header, containsString("======Printing Orders======\n"));
+        assertThat(header, containsString("Mr X\tChicago, 60601\n"));
     }
 
     @Test
